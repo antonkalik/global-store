@@ -4,10 +4,13 @@ import { initialState } from "./initialState.js";
 function createStore() {
   let state = initialState;
   let listeners = new Set();
+  let isInitialized = false;
 
   return {
     init: (initState) => {
-      state = initState;
+      if (!isInitialized) {
+        state = initState;
+      }
     },
     setState(callback) {
       state = callback(state);
