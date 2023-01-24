@@ -11,7 +11,7 @@ export const Header = () => {
             setState((prevStore) => {
             return {
               ...prevStore,
-              name: "Javier",
+              name: "Michael",
               age: 99,
             };
           })
