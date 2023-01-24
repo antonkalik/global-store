@@ -3,10 +3,6 @@ export const initialState = {
   age: 30,
   status: "active",
   details: {
-    address: "123 Main St",
-    city: "New York",
-    state: "NY",
-    zip: "10001",
     shares: [
       {
         symbol: "AAPL",
