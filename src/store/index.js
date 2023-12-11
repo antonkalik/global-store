@@ -1,35 +1,31 @@
-import { useSyncExternalStore } from "react";
-import { initialState } from "./initialState.js";
+import { useSyncExternalStore } from "./useSyncExternalStore";
 
-function createStore() {
-  let state = initialState;
-  let listeners = new Set();
-  let isInitialized = false;
+export class Store {
+  static listeners = new Set();
+  static isInitialized = false;
+  static state = null;
 
-  return {
-    init: (initState) => {
-      if (!isInitialized) {
-        state = initState;
-      }
-    },
-    setState(callback) {
-      state = callback(state);
-      listeners.forEach((listener) => listener(state));
-    },
-    useSelector(selector) {
-      return useSyncExternalStore(
-        (listener) => {
-          listeners.add(listener);
-          return () => listeners.delete(listener);
-        },
-        () => selector(state),
-        () => selector(state)
-      );
-    },
-  };
+  static init(initState) {
+    console.log("initState Store", initState);
+    if (!Store.isInitialized) {
+      Store.state = initState;
+      Store.isInitialized = true;
+    }
+  }
+
+  static setState(callback) {
+    Store.state = callback(Store.state);
+    Store.listeners.forEach((listener) => listener(Store.state));
+  }
 }
 
-const store = createStore();
-
-export default store;
-export const { setState, useSelector } = store;
+export const useSelector = (selector) => {
+  return useSyncExternalStore(
+    (listener) => {
+      Store.listeners.add(listener);
+      return () => Store.listeners.delete(listener);
+    },
+    () => selector(Store.state),
+    () => selector(Store.state)
+  );
+};

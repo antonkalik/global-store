@@ -1,4 +1,4 @@
-import { setState }  from "../../store";
+import { Store } from "../../store";
 
 export const Header = () => {
   console.log("Header updated");
@@ -8,7 +8,7 @@ export const Header = () => {
       <p>Header</p>
       <button
         onClick={() =>
-            setState((prevStore) => {
+          Store.setState((prevStore) => {
             return {
               ...prevStore,
               name: "Michael",

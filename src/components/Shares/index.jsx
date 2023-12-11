@@ -1,9 +1,9 @@
-import { useSelector } from "../../store";
+import { Store, useSelector } from "../../store";
 
 export const Shares = () => {
   const { shares } = useSelector((state) => state.details);
 
-  console.log("Shares updated")
+  console.log("Shares updated");
 
   return (
     <div className="shares">

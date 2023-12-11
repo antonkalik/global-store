@@ -3,10 +3,12 @@ import { Header } from "./components/Header/index.jsx";
 import { Body } from "./components/Body/index.jsx";
 import { Shares } from "./components/Shares/index.jsx";
 import { Footer } from "./components/Footer/index.jsx";
-import { setState } from "./store/index.js";
+import { Store } from "./store";
+import { initialState } from "./store/initialState";
 
 function App() {
   console.log("App updated");
+  Store.init(initialState);
 
   return (
     <div>
@@ -15,7 +17,7 @@ function App() {
       <Shares />
       <button
         onClick={() =>
-          setState((prevStore) => {
+          Store.setState((prevStore) => {
             const newShare = {
               symbol: "XRP",
               price: 1.27472,
@@ -43,4 +45,5 @@ function App() {
     </div>
   );
 }
+
 export default App;

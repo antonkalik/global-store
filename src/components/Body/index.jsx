@@ -1,4 +1,4 @@
-import { useSelector, setState } from "../../store";
+import { Store, useSelector } from "../../store";
 
 export const Body = () => {
   const name = useSelector((state) => state.name);
@@ -13,7 +13,7 @@ export const Body = () => {
       <p>Age: {age}</p>
       <button
         onClick={() =>
-          setState((prevStore) => {
+          Store.setState((prevStore) => {
             return {
               ...prevStore,
               name: "Javier",
