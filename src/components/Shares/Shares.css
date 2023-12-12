@@ -1,0 +1,19 @@
+.shares {
+  ul {
+    list-style-type: none;
+    li:first-child {
+      border-top: 1px solid lightgray;
+    }
+    li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 5px 0;
+      border-bottom: 1px solid lightgray;
+      button {
+        height: 30px;
+        line-height: 0;
+      }
+    }
+  }
+}

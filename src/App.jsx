@@ -8,37 +8,34 @@ import { setState } from "./store";
 function App() {
   console.log("App updated");
 
+  const updateStateInApp = () =>
+    setState((prevStore) => {
+      const newShare = {
+        symbol: "XRP",
+        price: 1.27472,
+      };
+      const share = prevStore.details.shares.find(
+        (share) => share.symbol === newShare.symbol
+      );
+      if (!share) {
+        return {
+          ...prevStore,
+          details: {
+            ...prevStore.details,
+            shares: [...prevStore.details.shares, newShare],
+          },
+        };
+      } else {
+        return prevStore;
+      }
+    });
+
   return (
     <div>
       <Header />
       <Body />
       <Shares />
-      <button
-        onClick={() =>
-          setState((prevStore) => {
-            const newShare = {
-              symbol: "XRP",
-              price: 1.27472,
-            };
-            const share = prevStore.details.shares.find(
-              (share) => share.symbol === newShare.symbol
-            );
-            if (!share) {
-              return {
-                ...prevStore,
-                details: {
-                  ...prevStore.details,
-                  shares: [...prevStore.details.shares, newShare],
-                },
-              };
-            } else {
-              return prevStore;
-            }
-          })
-        }
-      >
-        Update Shares From App
-      </button>
+      <button onClick={updateStateInApp}>Update Shares From App</button>
       <Footer />
     </div>
   );
