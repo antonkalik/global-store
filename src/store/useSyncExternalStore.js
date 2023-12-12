@@ -1,23 +1,19 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
-export const useSyncExternalStore = (
-  subscribe,
-  selector,
-  getSnapshot = selector
-) => {
-  const [state, setState] = useState(getSnapshot());
+export function useSyncExternalStore(subscribe, getSnapshot) {
+  let currentState = getSnapshot();
+  const [state, setState] = useState(currentState);
 
-  useEffect(() => {
-    function handleStateChange() {
-      setState(getSnapshot());
+  const handleChange = () => {
+    const nextState = getSnapshot();
+
+    if (nextState !== currentState) {
+      currentState = nextState;
+      setState(nextState);
     }
+  };
 
-    subscribe(handleStateChange);
+  subscribe(handleChange);
 
-    return () => {
-      subscribe(() => {});
-    };
-  }, [subscribe, getSnapshot]);
-
-  return selector(state);
-};
+  return state;
+}

@@ -1,4 +1,4 @@
-import { Store, useSelector } from "../../store";
+import { useSelector } from "../../store";
 
 export const Shares = () => {
   const { shares } = useSelector((state) => state.details);
